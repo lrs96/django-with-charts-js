@@ -11,9 +11,13 @@
 </head>
 <body>
 
-{% block content %}
-{% endblock content %}
 
+{% include 'navbar.html' %}
+
+<div class="container ui">
+    {% block content %}
+    {% endblock content %}
+</div>
 
 {% block scripts %}
 {% endblock scripts %}
