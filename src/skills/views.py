@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
 from .models import Skill
 from profiles.models import Profile
@@ -11,6 +11,9 @@ def skill_view(request):
     SkillFormset = inlineformset_factory(
         Profile, Skill, fields='__all__', extra=1, can_delete=True)
 
-    formset = SkillFormset(instance=profile)
+    formset = SkillFormset( request.POST or None,instance=profile)
+    if formset.is_valid():
+        formset.save()
+        redirect('skills/add.html')
 
     return render(request, 'skills/add.html', {'formset': formset})
